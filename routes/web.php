@@ -1,23 +1,24 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RepuestosController;
+use App\Http\Controllers\UsuarioController;
 
-// 1. Pantalla Principal / Inicio
-Route::get('/', function () {
-    return view('welcome');
-});
+// 1. Pantalla Principal / Inicio (usa el UsuarioController)
+Route::get('/', [UsuarioController::class, 'index']);
 
-// 2. Pantalla de Listado (Inventario)
+// 2. Rutas del almacén y repuestos (Resource mapea index, create, store, show, edit, update, destroy)
+Route::resource('repuestos', RepuestosController::class);
+
+// Rutas de vistas específicas
 Route::get('/almacen', function () {
     return view('almacen.index');
 });
 
-// 3. Pantalla de Detalle
 Route::get('/almacen/detalle', function () {
     return view('almacen.show');
 });
 
-// 4. Pantalla de Formulario (Nuevo Repuesto)
 Route::get('/almacen/nuevo', function () {
     return view('almacen.create');
 });
